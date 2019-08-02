@@ -1,9 +1,6 @@
 package com.proch.project.ums.service;
 
 import com.proch.project.ums.entity.Role;
-import com.proch.project.ums.entity.RoleAssignment;
-import com.proch.project.ums.repository.RoleAssignmentRepository;
-import com.proch.project.ums.repository.RoleRepository;
 import com.proch.project.ums.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,19 +11,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserDetailsServiceCustom implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private RoleAssignmentRepository roleAssignment;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -37,15 +28,14 @@ public class UserDetailsServiceCustom implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("No user found for " + username + ".");
         } else {
-            List<RoleAssignment> roleAssignments = roleAssignment.findByUserId(user.getId());
 
-            if (!roleAssignments.isEmpty()) {
-                for (RoleAssignment roleAssign : roleAssignments) {
-
-                    Optional<Role> role = roleRepository.findById(roleAssign.getRoleId());
-                    authorities.add(new SimpleGrantedAuthority(role.get().getRoleName()));
-                }
-            }
+//            Iterator<Role> list = user.getRoles().addAll(c)
+//            Role role = new Role();
+//            
+//            list.forEachRemaining(roleList::add);
+//            for (Role role : roleList) {
+//                authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+//            }
         }
         User userDetail = new User(user.getUsername(), user.getPassword(), authorities); // "{noop}"+
         return userDetail;

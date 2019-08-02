@@ -35,6 +35,7 @@ public class ProjectConstant {
     public static class Error {
         public static final String _403 = "403";
         public static final String _500 = "500";
+        public static final String REPEAT_USERNAME = "repeat user name";
 
     }
 }
