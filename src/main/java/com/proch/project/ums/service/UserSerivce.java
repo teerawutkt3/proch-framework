@@ -1,14 +1,16 @@
 package com.proch.project.ums.service;
 
-import com.proch.project.ums.entity.User;
-import com.proch.project.ums.repository.UserRepository;
-import com.proch.project.ums.vo.RegisterVo;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.common.collect.Lists;
+import com.proch.project.ums.entity.User;
+import com.proch.project.ums.repository.UserRepository;
+import com.proch.project.ums.vo.RegisterVo;
 
 @Service
 public class UserSerivce {
@@ -25,9 +27,13 @@ public class UserSerivce {
 
     public List<User> getUserAll() {
 
-        Iterable<User> users = userRepository.findAll();
-        List<User> userList = new ArrayList<>();
-        users.forEach(userList::add);
+        Iterable<User> users = userRepository.findAll();               
+        
+        ArrayList<User> userList = new ArrayList<User>(); 
+       
+        if(!users.toString().isEmpty())
+        	userList = Lists.newArrayList(users);         
+        
         return userList;
     }
 }

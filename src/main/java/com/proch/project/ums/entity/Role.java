@@ -1,5 +1,6 @@
 package com.proch.project.ums.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proch.project.common.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class Role extends BaseEntity {
     private String description;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable
+    @JsonIgnore
     private Set<User> users;
 
     public Role() {
