@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,11 +21,11 @@ public class Role extends BaseEntity {
 
     private String roleName;
     private String description;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable
     @JsonIgnore
-    private Set<User> users;
-
+//    private Set<User> users;
+    private List<User> users;
     public Role() {
 
     }

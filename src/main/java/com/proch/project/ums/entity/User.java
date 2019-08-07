@@ -1,13 +1,9 @@
 package com.proch.project.ums.entity;
 
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 import com.proch.project.common.entity.BaseEntity;
 
@@ -28,8 +24,9 @@ public class User extends BaseEntity {
 	private String username;
 	private String password;
 	private String token;
-	@ManyToMany(mappedBy = "users")
-	private Set<Role> roles;
+	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+//	private Set<Role> roles;
+	private List<Role> roles;
 
 	public User() {
 
