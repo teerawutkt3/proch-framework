@@ -6,8 +6,8 @@ import com.proch.project.ums.vo.RoleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Transient;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -24,12 +24,12 @@ public class RoleService {
         return roleList;
     }
 
-    public void insertRole(RoleVo roleVo) {
+    @Transient
+    public void insertRole(RoleVo.RoleFormVo roleFormVo) {
 
         Role role = new Role();
-        role.setRoleName(roleVo.getRoleName());
-        role.setDescription(roleVo.getDescription());
-        System.out.printf("date :"+ role.getCreatedDate());
+        role.setRoleName(roleFormVo.getRoleName());
+        role.setDescription(roleFormVo.getDescription());
         roleRepository.save(role);
     }
 

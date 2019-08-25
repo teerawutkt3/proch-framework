@@ -9,4 +9,11 @@ public class RoleVo {
 
     private String roleName;
     private String description;
+
+    @Getter
+    @Setter
+    public static class RoleFormVo{
+        private String roleName;
+        private String description;
+    }
 }

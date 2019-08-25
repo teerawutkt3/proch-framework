@@ -26,26 +26,26 @@ public class RoleController {
 
         try {
             responseData.setData(roleService.getRole());
-            MessageUtil.setMessage(responseData, ProjectConstant.ResponseMessage.SUCCESS, ProjectConstant.ResponseStatus.SUCCESS);
+            MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            MessageUtil.setMessage(responseData, ProjectConstant.ResponseMessage.FAILED, ProjectConstant.ResponseStatus.FAILED);
+            MessageUtil.setMessageFail(responseData, ProjectConstant.ResponseMessage.FAILED);
         }
         return responseData;
     }
 
     //==> Insert Role
     @PostMapping("/")
-    public ResponseData<RoleVo> insertRole(@RequestBody RoleVo roleVo) {
+    public ResponseData<RoleVo> insertRole(@RequestBody RoleVo.RoleFormVo roleFormVo) {
 
         ResponseData<RoleVo> responseData = new ResponseData<>();
 
         try {
-            roleService.insertRole(roleVo);
-            MessageUtil.setMessage(responseData, ProjectConstant.ResponseMessage.Save.SUCCESS, ProjectConstant.ResponseStatus.SUCCESS);
+            roleService.insertRole(roleFormVo);
+            MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.Save.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            MessageUtil.setMessage(responseData, ProjectConstant.ResponseMessage.Save.FAILED, ProjectConstant.ResponseStatus.FAILED);
+            MessageUtil.setMessageFail(responseData, ProjectConstant.ResponseMessage.Save.FAILED);
         }
         return responseData;
     }
@@ -56,9 +56,9 @@ public class RoleController {
         ResponseData<RoleVo> responseData = new ResponseData<>();
         try {
             roleService.deleteRole(id);
-            MessageUtil.setMessage(responseData, ProjectConstant.ResponseMessage.Delete.SUCCESS, ProjectConstant.ResponseStatus.SUCCESS);
+            MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.Delete.SUCCESS);
         }catch (Exception e){
-            MessageUtil.setMessage(responseData, ProjectConstant.ResponseMessage.Delete.FAILED, ProjectConstant.ResponseStatus.FAILED);
+            MessageUtil.setMessageFail(responseData, ProjectConstant.ResponseMessage.Delete.FAILED);
         }
         return responseData;
     }

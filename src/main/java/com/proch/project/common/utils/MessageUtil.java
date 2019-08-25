@@ -9,4 +9,12 @@ public class MessageUtil {
         responseData.setMessage(message);
         responseData.setStatus(status);
     }
+    public static void setMessageSuccess(ResponseData<?> responseData, String message){
+        responseData.setMessage(message);
+        responseData.setStatus(ProjectConstant.ResponseStatus.SUCCESS);
+    }
+    public static void setMessageFail(ResponseData<?> responseData, String message){
+        responseData.setMessage(message);
+        responseData.setStatus(ProjectConstant.ResponseStatus.FAILED);
+    }
 }

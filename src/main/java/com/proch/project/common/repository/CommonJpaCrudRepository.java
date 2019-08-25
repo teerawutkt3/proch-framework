@@ -1,13 +1,11 @@
 package com.proch.project.common.repository;
 
-import com.proch.project.common.constant.ProjectConstant;
-import com.proch.project.common.entity.BaseEntity;
 import java.io.Serializable;
-import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
+
+import com.proch.project.common.entity.BaseEntity;
 
 @NoRepositoryBean
 public interface CommonJpaCrudRepository<T extends BaseEntity, ID extends Serializable> extends CrudRepository<T, ID> {

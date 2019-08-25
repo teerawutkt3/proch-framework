@@ -1,6 +1,5 @@
 package com.proch.project.ums.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,33 +24,6 @@ public class UserController {
 
 	@Autowired
 	private UserSerivce userSerivce;
-
-	@PostMapping("/test")
-	public UserProfileVo test(@RequestBody User users) throws Exception {
-		UserProfileVo user = new UserProfileVo();
-		
-		user.setUsername("Teerawut");
-		List<String> roles = new ArrayList<String>();
-		roles.add("ADMIN");
-		roles.add("USER");
-		user.setRole(roles);
-//			throw new Exception("No negative number please!");
-		return user;
-	}
-	
-	
-	@GetMapping("/test2")
-	public UserProfileVo test() throws Exception {
-		UserProfileVo user = new UserProfileVo();
-		
-		user.setUsername("Teerawut");
-		List<String> roles = new ArrayList<String>();
-		roles.add("ADMIN");
-		roles.add("USER");
-		user.setRole(roles);
-//		throw new Exception("No negative number please!");
-		return user;
-	}
 
 	@GetMapping("/403")
 	public ResponseData<String> error403() {
