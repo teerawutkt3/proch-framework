@@ -21,14 +21,14 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 		MessageDispatcherServlet servlet = new MessageDispatcherServlet();
 		servlet.setApplicationContext(applicationContext);
 		servlet.setTransformWsdlLocations(true);
-		return new ServletRegistrationBean<MessageDispatcherServlet>(servlet, "/sope-ws/*");
+		return new ServletRegistrationBean<MessageDispatcherServlet>(servlet, "/soap-ws/*");
 	}
 
 	@Bean(name = "countries")
 	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
 		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 		wsdl11Definition.setPortTypeName("CountriesPort");
-		wsdl11Definition.setLocationUri("/sope-ws");
+		wsdl11Definition.setLocationUri("/soap-ws");
 		wsdl11Definition.setTargetNamespace("http://www.baeldung.com/springsoap/gen");
 		wsdl11Definition.setSchema(countriesSchema);
 		return wsdl11Definition;

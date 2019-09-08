@@ -65,8 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/api/user/generate-user",
 //			"/api/user/profile",
 			"/authenticate",
-			"/rest-ws/",
-			"/sope-ws"
+			//"/rest-ws/",
+			"/soap-ws"
 	};
 
 	@Override

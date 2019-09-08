@@ -1,4 +1,4 @@
-package com.proch.project.ws.sope;
+package com.proch.project.ws.soap;
 
 import com.baeldung.springsoap.gen.GetCountryRequest;
 import com.baeldung.springsoap.gen.GetCountryResponse;

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baeldung.springsoap.gen.Country;
-import com.proch.project.ws.sope.CountryRepository;
+import com.proch.project.ws.soap.CountryRepository;
 
 @Service
 public class RestService {
