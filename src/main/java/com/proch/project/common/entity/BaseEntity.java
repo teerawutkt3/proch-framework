@@ -1,17 +1,16 @@
 package com.proch.project.common.entity;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
-import javax.persistence.*;
-
-import com.proch.project.common.utils.UserLoginUtils;
-import org.apache.commons.lang3.StringUtils;
-
 import com.proch.project.common.constant.ProjectConstant.Flag;
-
+import com.proch.project.common.utils.DateUtils;
+import com.proch.project.common.utils.UserLoginUtils;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -33,13 +32,13 @@ public abstract class BaseEntity implements Serializable {
 	protected String createdBy;
 
 	@Column(name = "CREATED_DATE", updatable = false)
-	protected LocalDateTime createdDate;
+	protected Date createdDate;
 
 	@Column(name = "UPDATED_BY", nullable = true)
 	protected String updatedBy;
 
 	@Column(name = "UPDATED_DATE", nullable = true)
-	protected LocalDateTime updatedDate;
+	protected Date updatedDate;
 
 	@PrePersist
 	public void prePersist() {
@@ -48,7 +47,7 @@ public abstract class BaseEntity implements Serializable {
 		if (StringUtils.isBlank(createdBy)) {
 			createdBy = UserLoginUtils.getCurrentUsername();
 		}
-		createdDate = LocalDateTime.now();
+		createdDate = new Date();
 	}
 
 	@PreUpdate
@@ -56,6 +55,13 @@ public abstract class BaseEntity implements Serializable {
 		if (StringUtils.isBlank(updatedBy)) {
 			updatedBy = UserLoginUtils.getCurrentUsername();
 		}
-		updatedDate = LocalDateTime.now();
+		updatedDate = new Date();
+	}
+
+	public String getCreatedDateStr(){
+		return DateUtils.formatDateToString(createdDate, DateUtils.DD_MM_YYYY);
+	}
+	public String getUpdatedDateStr(){
+		return DateUtils.formatDateToString(updatedDate, DateUtils.DD_MM_YYYY);
 	}
 }
