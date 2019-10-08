@@ -3,6 +3,7 @@ package com.proch.project.ums.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -90,6 +91,20 @@ public class UserController {
 
 		try {
 			responseData.setData(userSerivce.register(formVo));
+			MessageUtil.setMessageSuccess(responseData);
+		} catch (Exception e) {
+			e.printStackTrace();
+			MessageUtil.setMessageFail(responseData);
+		}
+		return responseData;
+	}
+	
+	@GetMapping("/generate-password{password}")
+	public ResponseData<String> generatePassword(@RequestParam String password) {
+		ResponseData<String> responseData = new ResponseData<>();
+		
+		try {
+			responseData.setData(new BCryptPasswordEncoder().encode(password));
 			MessageUtil.setMessageSuccess(responseData);
 		} catch (Exception e) {
 			e.printStackTrace();
