@@ -3,6 +3,8 @@ package com.proch.project.ums.service;
 import com.proch.project.ums.entity.Role;
 import com.proch.project.ums.repository.RoleRepository;
 import com.proch.project.ums.vo.RoleVo;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +27,12 @@ public class RoleService {
     }
 
     @Transient
-    public void insertRole(RoleVo.RoleFormVo roleFormVo) {
-
-        Role role = new Role();
+    public void saveRole(RoleVo.RoleFormVo roleFormVo) {
+        Role role = new Role();        
+        if (StringUtils.isNotBlank(roleFormVo.getIdStr())) {
+        	role = roleRepository.findById(Long.valueOf(roleFormVo.getIdStr())).get();
+		}
+        
         role.setRoleName(roleFormVo.getRoleName());
         role.setDescription(roleFormVo.getDescription());
         roleRepository.save(role);

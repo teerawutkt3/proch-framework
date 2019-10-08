@@ -13,6 +13,7 @@ public class RoleVo {
     @Getter
     @Setter
     public static class RoleFormVo{
+    	private String idStr;
         private String roleName;
         private String description;
     }

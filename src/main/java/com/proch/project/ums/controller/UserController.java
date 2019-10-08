@@ -3,10 +3,12 @@ package com.proch.project.ums.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proch.project.common.bean.ResponseData;
@@ -45,11 +47,10 @@ public class UserController {
 			userProfile.setRole(roles);
 
 			responseData.setData(userProfile);
-			MessageUtil.setMessage(responseData, ProjectConstant.ResponseMessage.SUCCESS,
-					ProjectConstant.ResponseStatus.SUCCESS);
+			MessageUtil.setMessageSuccess(responseData);
 		} catch (Exception e) {
 			e.printStackTrace();
-			MessageUtil.setMessage(responseData, ProjectConstant.Error._403, ProjectConstant.ResponseStatus.FAILED);
+			MessageUtil.setMessageFail(responseData, ProjectConstant.Error._403);
 		}
 		return responseData;
 	}
@@ -75,8 +76,7 @@ public class UserController {
 
 		try {
 			userSerivce.register(registerVo);
-			MessageUtil.setMessage(responseData, ProjectConstant.ResponseMessage.SUCCESS,
-					ProjectConstant.ResponseStatus.SUCCESS);
+			MessageUtil.setMessageSuccess(responseData);
 		} catch (Exception e) {
 			e.printStackTrace();
 			MessageUtil.setMessage(responseData, ProjectConstant.Error._403, ProjectConstant.ResponseStatus.FAILED);
@@ -84,18 +84,30 @@ public class UserController {
 		return responseData;
 	}
 
-	@GetMapping("/generate-user")
+	@PostMapping("/generate-user")
 	public ResponseData<User> generateUser(@RequestBody RegisterVo formVo) {
 		ResponseData<User> responseData = new ResponseData<>();
 
 		try {
 			responseData.setData(userSerivce.register(formVo));
-			MessageUtil.setMessage(responseData, ProjectConstant.ResponseMessage.SUCCESS,
-					ProjectConstant.ResponseStatus.SUCCESS);
+			MessageUtil.setMessageSuccess(responseData);
 		} catch (Exception e) {
 			e.printStackTrace();
-			MessageUtil.setMessage(responseData, ProjectConstant.Error.REPEAT_USERNAME,
-					ProjectConstant.ResponseStatus.FAILED);
+			MessageUtil.setMessageFail(responseData);
+		}
+		return responseData;
+	}
+	
+	@DeleteMapping("/delete{id}")
+	public ResponseData<User> deleteUser(@RequestParam Long id) {
+		ResponseData<User> responseData = new ResponseData<>();
+		
+		try {
+			userSerivce.deleteUser(id);
+			MessageUtil.setMessageSuccess(responseData);
+		} catch (Exception e) {
+			e.printStackTrace();
+			MessageUtil.setMessageFail(responseData);
 		}
 		return responseData;
 	}

@@ -1,16 +1,22 @@
 package com.proch.project.common.entity;
 
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import org.apache.commons.lang3.StringUtils;
 import com.proch.project.common.constant.ProjectConstant.Flag;
 import com.proch.project.common.utils.DateUtils;
 import com.proch.project.common.utils.UserLoginUtils;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -49,7 +55,7 @@ public abstract class BaseEntity implements Serializable {
 		}
 		createdDate = new Date();
 	}
-
+	
 	@PreUpdate
 	public void preUpdate() {
 		if (StringUtils.isBlank(updatedBy)) {
@@ -63,5 +69,8 @@ public abstract class BaseEntity implements Serializable {
 	}
 	public String getUpdatedDateStr(){
 		return DateUtils.formatDateToString(updatedDate, DateUtils.DD_MM_YYYY);
+	}
+	public String getIdStr() {
+		return id.toString();
 	}
 }

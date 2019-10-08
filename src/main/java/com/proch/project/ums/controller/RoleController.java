@@ -36,12 +36,12 @@ public class RoleController {
 
     //==> Insert Role
     @PostMapping("/")
-    public ResponseData<RoleVo> insertRole(@RequestBody RoleVo.RoleFormVo roleFormVo) {
+    public ResponseData<RoleVo> create(@RequestBody RoleVo.RoleFormVo roleFormVo) {
 
         ResponseData<RoleVo> responseData = new ResponseData<>();
 
         try {
-            roleService.insertRole(roleFormVo);
+            roleService.saveRole(roleFormVo);
             MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.Save.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,10 +49,26 @@ public class RoleController {
         }
         return responseData;
     }
+    
+    //==> Update Role
+    @PutMapping("/")
+    public ResponseData<RoleVo> update(@RequestBody RoleVo.RoleFormVo roleFormVo) {
+    	
+    	ResponseData<RoleVo> responseData = new ResponseData<>();
+    	
+    	try {
+    		roleService.saveRole(roleFormVo);
+    		MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.Save.SUCCESS);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		MessageUtil.setMessageFail(responseData, ProjectConstant.ResponseMessage.Save.FAILED);
+    	}
+    	return responseData;
+    }
 
     //==> Delete
     @DeleteMapping("/{id}")
-    public ResponseData<RoleVo> deleteRole(@RequestParam Long id){
+    public ResponseData<RoleVo> delete(@RequestParam Long id){
         ResponseData<RoleVo> responseData = new ResponseData<>();
         try {
             roleService.deleteRole(id);
