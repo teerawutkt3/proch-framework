@@ -1,9 +1,7 @@
 package com.proch.project.ums.service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +11,7 @@ import com.proch.project.ums.entity.User;
 import com.proch.project.ums.repository.RoleRepository;
 import com.proch.project.ums.repository.UserRepository;
 import com.proch.project.ums.vo.RoleAssignmentVo;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RoleAssignmentService {
@@ -22,30 +21,29 @@ public class RoleAssignmentService {
 	@Autowired
 	private RoleRepository roleRepository;
 
-	
+
+	@Transactional
 	public User save(RoleAssignmentVo vo) {
 		
 		User user = userRepository.findById(vo.getUserId()).get();		
 		List<Role> hasRole = new ArrayList<Role>();
 		List<User> hasUser = new ArrayList<User>();
-		
+
 		for (Role role : user.getRoles()) {
-			
-			hasUser.clear();
-			hasRole.clear();
-			role.setUsers(hasUser);
+			role.getUsers().clear();
+			roleRepository.delete(role);
 		}
-		user.setRoles(hasRole);
-		user = userRepository.save(user);
+		user.getRoles().clear();
+		userRepository.delete(user);
+		hasUser.add(user);
 		for (Long roleId : vo.getRoleIds()) {
 			Role role = roleRepository.findById(roleId).get();
-			
-			hasRole.add(role);zvxcvzx
-			hasUser.add(user);
 			role.setUsers(hasUser);
-			user.setRoles(hasRole);	
-			user = userRepository.save(user);
+			hasRole.add(role);
 		}
+
+		user.setRoles(hasRole);
+		user = userRepository.save(user);
 		
 		return user;
 	}

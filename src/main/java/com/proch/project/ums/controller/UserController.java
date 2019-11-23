@@ -2,6 +2,7 @@ package com.proch.project.ums.controller;
 
 import java.util.List;
 
+import com.proch.project.common.entity.JwtRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,6 +34,20 @@ public class UserController {
 		ResponseData<String> responseData = new ResponseData<String>();
 		responseData.setData(null);
 		MessageUtil.setMessage(responseData, ProjectConstant.Error._403, ProjectConstant.ResponseStatus.FAILED);
+		return responseData;
+	}
+	@GetMapping("/test")
+	public ResponseData<String> TestHttp() {
+		ResponseData<String> responseData = new ResponseData<String>();
+		responseData.setData("test");
+		MessageUtil.setMessageSuccess(responseData);
+		return responseData;
+	}
+	@PostMapping("/testPost")
+	public ResponseData<RegisterVo> TestHttpPost(@RequestBody RegisterVo request) {
+		ResponseData<RegisterVo> responseData = new ResponseData<RegisterVo>();
+		responseData.setData(request);
+		MessageUtil.setMessageSuccess(responseData);
 		return responseData;
 	}
 	@GetMapping("/profile")

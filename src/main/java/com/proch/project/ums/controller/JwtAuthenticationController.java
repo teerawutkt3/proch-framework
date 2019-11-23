@@ -1,4 +1,7 @@
 package com.proch.project.ums.controller;
+import com.proch.project.common.bean.ResponseData;
+import com.proch.project.common.constant.ProjectConstant;
+import com.proch.project.common.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,13 +31,15 @@ public class JwtAuthenticationController {
 	private UserDetailsServiceCustom userDetailsService;
 
 	@PostMapping(value = "/authenticate")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+	public ResponseData<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-		final String token = jwtTokenUtil.generateToken(userDetails);		
-		
-		return ResponseEntity.ok(new JwtResponse(token));
+		final String token = jwtTokenUtil.generateToken(userDetails);
+		ResponseData responseData = new ResponseData();
+		responseData.setData(new JwtResponse(token));
+		MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.SUCCESS);
+		return responseData;
 	}
 
 	private void authenticate(String username, String password) throws Exception {
