@@ -3,13 +3,7 @@ package com.proch.project.ums.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 import com.proch.project.common.entity.BaseEntity;
 
@@ -27,7 +21,7 @@ public class User extends BaseEntity {
 	private String username;
 	private String password;
 	private String token;
-	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Role> roles = new ArrayList<Role>();
 	
 	public User() {}

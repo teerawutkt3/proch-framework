@@ -13,6 +13,8 @@ import com.proch.project.ums.repository.UserRepository;
 import com.proch.project.ums.vo.RoleAssignmentVo;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+
 @Service
 public class RoleAssignmentService {
 
@@ -24,27 +26,28 @@ public class RoleAssignmentService {
 
 	@Transactional
 	public User save(RoleAssignmentVo vo) {
-		
-		User user = userRepository.findById(vo.getUserId()).get();		
+
+		User user = userRepository.findById(vo.getUserId()).get();
 		List<Role> hasRole = new ArrayList<Role>();
 		List<User> hasUser = new ArrayList<User>();
 
 		for (Role role : user.getRoles()) {
-			role.getUsers().clear();
-			roleRepository.delete(role);
+			role.getUsers().remove(user);
+			roleRepository.save(role);
 		}
 		user.getRoles().clear();
-		userRepository.delete(user);
+		user = userRepository.save(user);
+
+		user.setRoles(hasRole);
 		hasUser.add(user);
 		for (Long roleId : vo.getRoleIds()) {
 			Role role = roleRepository.findById(roleId).get();
-			role.setUsers(hasUser);
-			hasRole.add(role);
-		}
 
-		user.setRoles(hasRole);
+			hasRole.add(role);
+			role.setUsers(hasUser);
+			user.setRoles(hasRole);
+		}
 		user = userRepository.save(user);
-		
 		return user;
 	}
 }
