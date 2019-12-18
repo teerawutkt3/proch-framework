@@ -32,8 +32,8 @@ public class UserSerivce {
         ArrayList<User> userList = new ArrayList<User>(); 
        
         if(!users.toString().isEmpty())
-        	userList = Lists.newArrayList(users);         
-        
+        	userList = Lists.newArrayList(users);
+
         return userList;
     }
     
