@@ -1,7 +1,7 @@
 package com.proch.project.common.utils;
 
-import com.proch.project.common.bean.ResponseData;
-import com.proch.project.common.constant.ProjectConstant;
+import com.proch.project.common.beans.ResponseData;
+import com.proch.project.common.constants.ProjectConstant;
 
 public class MessageUtil {
 

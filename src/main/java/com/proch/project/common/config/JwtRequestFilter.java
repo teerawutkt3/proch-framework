@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.proch.project.common.utils.JwtTokenUtil;
-import com.proch.project.ums.service.UserDetailsServiceCustom;
+import com.proch.project.ums.services.UserDetailsServiceCustom;
 
 import io.jsonwebtoken.ExpiredJwtException;
 

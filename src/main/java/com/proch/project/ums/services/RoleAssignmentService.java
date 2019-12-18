@@ -1,9 +1,9 @@
-package com.proch.project.ums.service;
+package com.proch.project.ums.services;
 
-import com.proch.project.ums.entity.Role;
-import com.proch.project.ums.entity.User;
-import com.proch.project.ums.repository.RoleRepository;
-import com.proch.project.ums.repository.UserRepository;
+import com.proch.project.ums.entities.Role;
+import com.proch.project.ums.entities.User;
+import com.proch.project.ums.repositories.RoleRepository;
+import com.proch.project.ums.repositories.UserRepository;
 import com.proch.project.ums.vo.RoleAssignmentVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

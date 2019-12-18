@@ -16,7 +16,6 @@ public class UserLoginUtils {
 	private static Authentication getUserLogin(){
 		Authentication auth = null;
 		if (SecurityContextHolder.getContext().getAuthentication() != null) {
-
 			auth = SecurityContextHolder.getContext().getAuthentication();
 		}
 		return auth;

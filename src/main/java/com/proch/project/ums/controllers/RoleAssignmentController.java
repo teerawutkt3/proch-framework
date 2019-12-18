@@ -1,4 +1,4 @@
-package com.proch.project.ums.controller;
+package com.proch.project.ums.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proch.project.common.bean.ResponseData;
-import com.proch.project.common.constant.ProjectConstant;
+import com.proch.project.common.beans.ResponseData;
+import com.proch.project.common.constants.ProjectConstant;
 import com.proch.project.common.utils.MessageUtil;
-import com.proch.project.ums.entity.User;
-import com.proch.project.ums.service.RoleAssignmentService;
+import com.proch.project.ums.entities.User;
+import com.proch.project.ums.services.RoleAssignmentService;
 import com.proch.project.ums.vo.RoleAssignmentVo;
 
 @RestController
