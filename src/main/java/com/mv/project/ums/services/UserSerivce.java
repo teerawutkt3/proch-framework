@@ -27,7 +27,7 @@ public class UserSerivce {
 
     public List<User> getUserAll() {
 
-        Iterable<User> users = userRepository.findAll();               
+        List<User> users = userRepository.findAllByOrderByCreatedDateDesc();               
         
         ArrayList<User> userList = new ArrayList<User>(); 
        

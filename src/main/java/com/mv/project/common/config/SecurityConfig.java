@@ -67,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/authenticate",
 			//"/rest-ws/",
 			"/soap-ws",
+			"/",
 			//"/api/user/test",
 			"/api/user/testPost"
 	};
