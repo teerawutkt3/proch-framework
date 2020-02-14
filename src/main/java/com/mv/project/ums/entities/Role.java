@@ -26,6 +26,7 @@ import lombok.Setter;
 public class Role extends BaseEntity {
 
     private static final long serialVersionUID = 1465422119343489700L;
+    private String roleCode;
     private String roleName;
     private String description;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
