@@ -1,11 +1,5 @@
 package com.mv.project.ums.controllers;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
-
 import com.mv.project.common.beans.ResponseData;
 import com.mv.project.common.constants.ProjectConstant;
 import com.mv.project.common.utils.MessageUtil;
@@ -14,6 +8,12 @@ import com.mv.project.ums.entities.User;
 import com.mv.project.ums.services.UserSerivce;
 import com.mv.project.ums.vo.RegisterVo;
 import com.mv.project.ums.vo.UserProfileVo;
+import com.mv.project.ums.vo.UserVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -64,10 +64,9 @@ public class UserController {
 		return responseData;
 	}
 
-	@GetMapping("/user-all")
+	@GetMapping("/")
 	public ResponseData<List<User>> getUserAll() {
 		ResponseData<List<User>> responseData = new ResponseData<>();
-
 		try {
 			responseData.setData(userSerivce.getUserAll());
 			MessageUtil.setMessage(responseData, ProjectConstant.ResponseMessage.SUCCESS,
@@ -79,12 +78,25 @@ public class UserController {
 		return responseData;
 	}
 
-	@PostMapping("/register")
-	public ResponseData<User> register(@RequestBody RegisterVo registerVo) {
+	@GetMapping("/{id}")
+	public ResponseData<User> findByUserId(@PathVariable long id) {
 		ResponseData<User> responseData = new ResponseData<>();
-
 		try {
-			userSerivce.register(registerVo);
+			responseData.setData(userSerivce.findByUserId(id));
+			MessageUtil.setMessage(responseData, ProjectConstant.ResponseMessage.SUCCESS,
+					ProjectConstant.ResponseStatus.SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			MessageUtil.setMessage(responseData, ProjectConstant.Error._403, ProjectConstant.ResponseStatus.FAILED);
+		}
+		return responseData;
+	}
+
+	@PostMapping("/")
+	public ResponseData<UserVo> register(@RequestBody UserVo userVo) {
+		ResponseData<UserVo> responseData = new ResponseData<>();
+		try {
+			responseData.setData(userSerivce.save(userVo));
 			MessageUtil.setMessageSuccess(responseData);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,23 +106,21 @@ public class UserController {
 	}
 
 	@PostMapping("/generate-user")
-	public ResponseData<User> generateUser(@RequestBody RegisterVo formVo) {
-		ResponseData<User> responseData = new ResponseData<>();
-
+	public ResponseData<UserVo> registerNotAuthen(@RequestBody UserVo userVo) {
+		ResponseData<UserVo> responseData = new ResponseData<>();
 		try {
-			responseData.setData(userSerivce.register(formVo));
+			responseData.setData(userSerivce.save(userVo));
 			MessageUtil.setMessageSuccess(responseData);
 		} catch (Exception e) {
 			e.printStackTrace();
-			MessageUtil.setMessageFail(responseData);
+			MessageUtil.setMessage(responseData, ProjectConstant.Error._403, ProjectConstant.ResponseStatus.FAILED);
 		}
 		return responseData;
 	}
-	
+
 	@GetMapping("/generate-password{password}")
 	public ResponseData<String> generatePassword(@RequestParam String password) {
 		ResponseData<String> responseData = new ResponseData<>();
-		
 		try {
 			responseData.setData(new BCryptPasswordEncoder().encode(password));
 			MessageUtil.setMessageSuccess(responseData);
@@ -121,10 +131,9 @@ public class UserController {
 		return responseData;
 	}
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseData<User> deleteUser(@PathVariable Long id) {
 		ResponseData<User> responseData = new ResponseData<>();
-		
 		try {
 			userSerivce.deleteUser(id);
 			MessageUtil.setMessageSuccess(responseData);

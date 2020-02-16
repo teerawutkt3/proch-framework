@@ -21,67 +21,61 @@ import com.mv.project.ums.services.RoleService;
 @RequestMapping("/api/role")
 public class RoleController {
 
-	@Autowired
-	private RoleService roleService;
+    @Autowired
+    private RoleService roleService;
 
-	// ==> Get Role
-	@GetMapping("/")
-	public ResponseData<List<Role>> getRole() {
+    // ==> Get Role
+    @GetMapping("/")
+    public ResponseData<List<Role>> getRole() {
+        ResponseData<List<Role>> responseData = new ResponseData<>();
+        try {
+            responseData.setData(roleService.getRole());
+            MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageUtil.setMessageFail(responseData, ProjectConstant.ResponseMessage.FAILED);
+        }
+        return responseData;
+    }
 
-		ResponseData<List<Role>> responseData = new ResponseData<>();
+    // ==> Find By Id
+    @GetMapping("/{id}")
+    public ResponseData<Role> findById(@PathVariable long id) {
+        ResponseData<Role> responseData = new ResponseData<>();
+        try {
+            responseData.setData(roleService.findById(id));
+            MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.Save.SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageUtil.setMessageFail(responseData, ProjectConstant.ResponseMessage.Save.FAILED);
+        }
+        return responseData;
+    }
 
-		try {
-			responseData.setData(roleService.getRole());
-			MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.SUCCESS);
-		} catch (Exception e) {
-			e.printStackTrace();
-			MessageUtil.setMessageFail(responseData, ProjectConstant.ResponseMessage.FAILED);
-		}
-		return responseData;
-	}
+    // ==> Save & Update Role
+    @PostMapping("/")
+    public ResponseData<Role> save(@RequestBody Role role) {
+        ResponseData<Role> responseData = new ResponseData<>();
+        try {
+            roleService.saveRole(role);
+            MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.Save.SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageUtil.setMessageFail(responseData, ProjectConstant.ResponseMessage.Save.FAILED);
+        }
+        return responseData;
+    }
 
-	// ==> Find By Id
-	@GetMapping("/{id}")
-	public ResponseData<Role> findById(@PathVariable long id) {
-		ResponseData<Role> responseData = new ResponseData<>();
-
-		try {
-
-			responseData.setData(roleService.findById(id));
-			MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.Save.SUCCESS);
-		} catch (Exception e) {
-			e.printStackTrace();
-			MessageUtil.setMessageFail(responseData, ProjectConstant.ResponseMessage.Save.FAILED);
-		}
-		return responseData;
-	}
-
-	// ==> Save & Update Role
-	@PostMapping("/")
-	public ResponseData<Role> save(@RequestBody Role role) {
-
-		ResponseData<Role> responseData = new ResponseData<>();
-
-		try {
-			roleService.saveRole(role);
-			MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.Save.SUCCESS);
-		} catch (Exception e) {
-			e.printStackTrace();
-			MessageUtil.setMessageFail(responseData, ProjectConstant.ResponseMessage.Save.FAILED);
-		}
-		return responseData;
-	}
-
-	// ==> Delete
-	@DeleteMapping("/{id}")
-	public ResponseData<?> delete(@PathVariable Long id) {
-		ResponseData<?> responseData = new ResponseData<>();
-		try {
-			roleService.deleteRole(id);
-			MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.Delete.SUCCESS);
-		} catch (Exception e) {
-			MessageUtil.setMessageFail(responseData, ProjectConstant.ResponseMessage.Delete.FAILED);
-		}
-		return responseData;
-	}
+    // ==> Delete
+    @DeleteMapping("/{id}")
+    public ResponseData<?> delete(@PathVariable Long id) {
+        ResponseData<?> responseData = new ResponseData<>();
+        try {
+            roleService.deleteRole(id);
+            MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.Delete.SUCCESS);
+        } catch (Exception e) {
+            MessageUtil.setMessageFail(responseData, ProjectConstant.ResponseMessage.Delete.FAILED);
+        }
+        return responseData;
+    }
 }

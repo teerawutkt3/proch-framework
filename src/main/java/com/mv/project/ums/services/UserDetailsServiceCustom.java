@@ -29,13 +29,13 @@ public class UserDetailsServiceCustom implements UserDetailsService {
             throw new UsernameNotFoundException("No user found for " + username + ".");
         } else {
 
-        	List<Role> roleList = user.getRoles();
+//        	List<Role> roleList = user.getRoles();
 //        	roleList.toArray();
 //            List<Role> roleList = user.getRoles();
 //            List<Role> roleList = new ArrayList<Role>();
-            for (Role role : roleList) {
-                authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
-            }
+//            for (Role role : roleList) {
+//                authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+//            }
         }
         User userDetail = new User(user.getUsername(), user.getPassword(), authorities); // "{noop}"+
         return userDetail;

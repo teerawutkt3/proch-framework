@@ -1,7 +1,10 @@
 package com.mv.project.common.repositories;
 
 import java.io.Serializable;
+import java.util.List;
 
+import com.mv.project.common.constants.ProjectConstant;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
@@ -15,8 +18,8 @@ public interface CommonJpaCrudRepository<T extends BaseEntity, ID extends Serial
      *
      * @return all entities
      */
-   /* @Query("select e from #{#entityName} e where e.isDeleted = '" + ProjectConstant.Flag.N + "'")
-    List<T> findAll();*/
+//    @Query("select e from #{#entityName} e where e.isDeleted = '" + ProjectConstant.Flag.N + "'")
+//    List<T> findAll();
 
     /**
      * Returns the number of entities available.

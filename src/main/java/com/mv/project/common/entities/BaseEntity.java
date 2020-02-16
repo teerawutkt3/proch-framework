@@ -34,7 +34,7 @@ public abstract class BaseEntity implements Serializable {
 	protected Long id;
 
 	@Column(name = "IS_DELETED", length = 1)
-	protected String isDeleted;
+	protected String isDeleted = "N";
 
 	@Column(name = "CREATED_BY", updatable = false)
 	protected String createdBy;

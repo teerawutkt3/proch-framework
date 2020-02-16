@@ -1,22 +1,13 @@
 package com.mv.project.ums.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.AttributeOverride;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mv.project.common.entities.BaseEntity;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ROLE")
@@ -29,14 +20,23 @@ public class Role extends BaseEntity {
     private String roleCode;
     private String roleName;
     private String description;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable
-    @JsonIgnore
-    private List<User> users = new ArrayList<User>();
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinTable
+//    @JsonIgnore
+//    private List<User> users = new ArrayList<User>();
 
     public Role() {}
     public Role (String roleName, String description) {
         this.roleName = roleName;
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "roleCode='" + roleCode + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

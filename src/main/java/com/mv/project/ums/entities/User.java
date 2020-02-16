@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 import com.mv.project.common.entities.BaseEntity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,8 +22,8 @@ public class User extends BaseEntity {
 	private String username;
 	private String password;
 	private String token;
-	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<Role> roles = new ArrayList<Role>();
+//	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	private List<Role> roles = new ArrayList<Role>();
 	
 	public User() {}
 
@@ -32,4 +33,10 @@ public class User extends BaseEntity {
 		this.token = token;
 	}
 
+	@Override
+	public String toString() {
+		return "User{" +
+				"username='" + username + '\'' +
+				'}';
+	}
 }
