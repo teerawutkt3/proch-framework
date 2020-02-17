@@ -1,5 +1,20 @@
 package com.mv.project.ums.controllers;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.mv.project.common.beans.ResponseData;
 import com.mv.project.common.constants.ProjectConstant;
 import com.mv.project.common.utils.MessageUtil;
@@ -9,16 +24,11 @@ import com.mv.project.ums.services.UserSerivce;
 import com.mv.project.ums.vo.RegisterVo;
 import com.mv.project.ums.vo.UserProfileVo;
 import com.mv.project.ums.vo.UserVo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
-public class UserController {
-
+public	class UserController {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private UserSerivce userSerivce;
 
@@ -53,7 +63,7 @@ public class UserController {
 			List<String> roles = UserLoginUtils.getGrantedAuthorityList();
 
 			userProfile.setUsername(username);
-			userProfile.setRole(roles);
+			userProfile.setRoles(roles);
 
 			responseData.setData(userProfile);
 			MessageUtil.setMessageSuccess(responseData);
@@ -96,11 +106,13 @@ public class UserController {
 	public ResponseData<UserVo> register(@RequestBody UserVo userVo) {
 		ResponseData<UserVo> responseData = new ResponseData<>();
 		try {
+			logger.info("Method register ==> {}", userVo.toString());
 			responseData.setData(userSerivce.save(userVo));
 			MessageUtil.setMessageSuccess(responseData);
 		} catch (Exception e) {
+			logger.error("Method register err");
 			e.printStackTrace();
-			MessageUtil.setMessage(responseData, ProjectConstant.Error._403, ProjectConstant.ResponseStatus.FAILED);
+			MessageUtil.setMessage(responseData, e.getMessage(), ProjectConstant.ResponseStatus.FAILED);
 		}
 		return responseData;
 	}

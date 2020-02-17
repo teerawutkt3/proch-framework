@@ -1,13 +1,13 @@
 package com.mv.project.ums.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.mv.project.common.entities.BaseEntity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,17 +22,7 @@ public class User extends BaseEntity {
 	private String username;
 	private String password;
 	private String token;
-//	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	private List<Role> roles = new ArrayList<Role>();
 	
-	public User() {}
-
-	public User(String username, String password, String token) {
-		this.username = username;
-		this.password = password;
-		this.token = token;
-	}
-
 	@Override
 	public String toString() {
 		return "User{" +

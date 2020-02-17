@@ -1,4 +1,6 @@
 package com.mv.project.ums.controllers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,7 +21,7 @@ import com.mv.project.ums.services.UserDetailsServiceCustom;
 
 @RestController
 public class JwtAuthenticationController {
-
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -32,7 +34,7 @@ public class JwtAuthenticationController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping(value = "/authenticate")
 	public ResponseData<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-
+		logger.info("Long => {}", authenticationRequest.toString());
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		final String token = jwtTokenUtil.generateToken(userDetails);

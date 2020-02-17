@@ -32,7 +32,18 @@ public class UserSerivce {
     @Transactional
     public UserVo save(UserVo userVo) {
         User user = userVo.getUser();
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        //==> Update User
+        if (user.getId()!=null) {
+			Optional<User> userOptional = userRepository.findById(user.getId());
+			if (userOptional.isPresent()) {
+				User userUpdate = userOptional.get();
+				userUpdate.setUsername(user.getUsername());
+				user = userUpdate;
+			}
+		}else {
+			//==> Create User
+			user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+		}
         user = userRepository.save(user);
         //==> Assign roles
         userRoleRepository.deleteByUserId(user.getId());
@@ -45,9 +56,9 @@ public class UserSerivce {
                 userrole.setRole(roleOptional.get());
                 userRoles.add(userrole);
             }
-            userRoleRepository.saveAll(userRoles);
-            userVo.setUser(user);
         }
+        userRoleRepository.saveAll(userRoles);
+        userVo.setUser(user);
         return userVo;
     }
 

@@ -1,8 +1,8 @@
 package com.mv.project.ums.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.mv.project.ums.entities.UserRole;
+import com.mv.project.ums.repositories.UserRepository;
+import com.mv.project.ums.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -11,13 +11,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.mv.project.ums.entities.Role;
-import com.mv.project.ums.repositories.UserRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserDetailsServiceCustom implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserRoleRepository userRoleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -28,14 +30,10 @@ public class UserDetailsServiceCustom implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("No user found for " + username + ".");
         } else {
-
-//        	List<Role> roleList = user.getRoles();
-//        	roleList.toArray();
-//            List<Role> roleList = user.getRoles();
-//            List<Role> roleList = new ArrayList<Role>();
-//            for (Role role : roleList) {
-//                authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
-//            }
+            List<UserRole> usersRoles = userRoleRepository.findByUserId(user.getId());
+            usersRoles.forEach(userRole -> {
+                authorities.add(new SimpleGrantedAuthority(userRole.getRole().getRoleCode()));
+            });
         }
         User userDetail = new User(user.getUsername(), user.getPassword(), authorities); // "{noop}"+
         return userDetail;

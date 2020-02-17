@@ -39,7 +39,7 @@ public class UserLoginUtils {
 		} else{
 			new ArrayList<>();
 		}
-		logger.info("getGrantedAuthorityList success");
+		logger.info("getGrantedAuthorityList :  {} success", authorityList);
 		return authorityList;
 	}
 	

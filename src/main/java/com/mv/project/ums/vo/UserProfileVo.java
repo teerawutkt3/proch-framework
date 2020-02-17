@@ -8,9 +8,6 @@ import java.util.List;
 @Getter
 @Setter
 public class UserProfileVo {
-
 	private String username;
-	private List<String> role;
-	private String token;
-
+	private List<String> roles;
 }

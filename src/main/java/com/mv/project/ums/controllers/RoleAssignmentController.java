@@ -23,7 +23,7 @@ public class RoleAssignmentController {
 	public ResponseData<User> save(@RequestBody RoleAssignmentVo vo){
 		ResponseData<User> responseData = new ResponseData<>();
 		try {
-			responseData.setData(roleAssignmentService.save(vo));			
+			responseData.setData(roleAssignmentService.save(vo));
 			MessageUtil.setMessageSuccess(responseData, ProjectConstant.ResponseMessage.Save.SUCCESS);
 		} catch (Exception e) {
 			MessageUtil.setMessageFail(responseData, ProjectConstant.ResponseMessage.Save.FAILED);
