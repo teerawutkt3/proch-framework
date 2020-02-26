@@ -7,6 +7,8 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.ApiKeyVehicle;
+import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
@@ -16,6 +18,9 @@ public class SwaggerConfiguration {
     @Value("${application.swagger.enable:true}")
     private boolean externallyConfiguredFlag;
 
+    @Value("${application.swagger.token}")
+    private String token;
+
     @Bean
     public Docket selectApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -24,5 +29,17 @@ public class SwaggerConfiguration {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
+    }
+
+    @Bean
+    public SecurityConfiguration security() {
+        final String swaggerToken = token;
+        return new SecurityConfiguration(
+                null,
+                null,
+                null,
+                null,
+                "Bearer " + swaggerToken, ApiKeyVehicle.HEADER,
+                "Authorization", ",");
     }
 }

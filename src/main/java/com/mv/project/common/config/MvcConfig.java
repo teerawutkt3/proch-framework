@@ -13,6 +13,12 @@ public class MvcConfig implements WebMvcConfigurer {
 
 	@Value("${host}")
 	private String host;
+	@Value("${host2}")
+	private String host2;
+	@Value("${host3}")
+	private String host3;
+	@Value("${host4}")
+	private String host4;
 	private final long MAX_AGE_SECS = 3600;
 
 	/*
@@ -32,7 +38,7 @@ public class MvcConfig implements WebMvcConfigurer {
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**").allowedOrigins("*")
 				.allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE")
-				.allowedOrigins(host).maxAge(MAX_AGE_SECS);
+				.allowedOrigins(host, host2, host3, host4).maxAge(MAX_AGE_SECS);
 	}
 
 	@Bean
