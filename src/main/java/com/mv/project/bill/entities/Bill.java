@@ -20,6 +20,10 @@ public class Bill extends BaseEntity {
         private BigDecimal amount;
         @Column(length = 1000)
         private String description;
+        @Column(length = 1)
+        private String isShow;
+        @Column(length = 1000)
+        private String remark;
 
     @Override
     public String toString() {
