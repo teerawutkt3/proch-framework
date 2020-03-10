@@ -11,6 +11,7 @@ import java.util.List;
 public class UserVo {
 	private User user;
 	private List<Long> roleIds;
+	private String password;
 
 	@Override
 	public String toString() {

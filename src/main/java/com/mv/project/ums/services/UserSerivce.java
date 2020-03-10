@@ -11,11 +11,18 @@ import com.mv.project.ums.vo.UserVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,5 +86,13 @@ public class UserSerivce {
         userRoleRepository.deleteByUserId(userId);
         userRepository.deleteById(userId);
         logger.info("Method deleteUser id: {} success", userId);
+    }
+
+    @Transactional
+    public void changePassowrd(UserVo userVo){
+        User user = userVo.getUser();
+        user.setPassword(new BCryptPasswordEncoder().encode(userVo.getPassword()));
+        user.setChangePasswordDate(new Date());
+        userRepository.save(user);
     }
 }

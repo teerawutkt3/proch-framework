@@ -49,6 +49,5 @@ public class MvcConfig implements WebMvcConfigurer {
 		loggingFilter.setIncludePayload(true);
 		loggingFilter.setIncludeHeaders(false);
 		return loggingFilter;
-
 	}
 }
