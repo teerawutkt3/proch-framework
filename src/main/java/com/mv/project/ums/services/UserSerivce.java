@@ -40,7 +40,7 @@ public class UserSerivce {
     public UserVo save(UserVo userVo) {
         User user = userVo.getUser();
         //==> Update User
-        if (user.getId()!=null) {
+        if (user.getId()!=null && user.getId()!=0) {
 			Optional<User> userOptional = userRepository.findById(user.getId());
 			if (userOptional.isPresent()) {
 				User userUpdate = userOptional.get();

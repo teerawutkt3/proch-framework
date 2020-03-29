@@ -1,6 +1,7 @@
 package com.mv.project.bill.services;
 
 import com.mv.project.bill.entities.Bill;
+import com.mv.project.bill.entities.BillHistories;
 import com.mv.project.bill.repositories.BillRepository;
 import com.mv.project.common.constants.ProjectConstant;
 import com.mv.project.common.utils.UserLoginUtils;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class BillService {
@@ -18,10 +21,14 @@ public class BillService {
     @Autowired
     private BillRepository billRepository;
 
+    @Autowired
+    private BillHistoryService billHistoryService;
+
     public List<Bill> findAll(){
         Iterable<Bill> result = billRepository.findByCreatedByOrderByCreatedDateDesc(UserLoginUtils.getCurrentUsername());
         List<Bill> billList = new ArrayList<>();
         result.forEach(billList::add);
+
         return billList;
     }
 
@@ -29,6 +36,12 @@ public class BillService {
         Iterable<Bill> result = billRepository.findByIsShowAndCreatedByOrderByCreatedDateDesc(ProjectConstant.Flag.Y, UserLoginUtils.getCurrentUsername());
         List<Bill> billList = new ArrayList<>();
         result.forEach(billList::add);
+
+        //==> filter with history
+        List<BillHistories> hisList = billHistoryService.findAll();
+        for (BillHistories billHis: hisList) {
+            billList = billList.stream().filter(e -> !e.getTitle().equals(billHis.getTitle())).collect(Collectors.toList());
+        }
         return billList;
     }
 

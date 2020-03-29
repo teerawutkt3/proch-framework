@@ -67,10 +67,10 @@ public abstract class BaseEntity implements Serializable {
 	}
 
 	public String getCreatedDateStr(){
-		return DateUtils.formatDateToString(createdDate, DateUtils.DD_MM_YYYY_HHMMSS);
+		return DateUtils.formatDate(createdDate, DateUtils.DD_MM_YYYY_HHMMSS);
 	}
 	public String getUpdatedDateStr(){
-		return DateUtils.formatDateToString(updatedDate, DateUtils.DD_MM_YYYY_HHMMSS);
+		return DateUtils.formatDate(updatedDate, DateUtils.DD_MM_YYYY_HHMMSS);
 	}
 	public String getIdStr() {
 		return id.toString();
