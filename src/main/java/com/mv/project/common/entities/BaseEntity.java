@@ -30,7 +30,7 @@ public abstract class BaseEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
-	@Column(name = "id", nullable = false, columnDefinition = "BIGINT UNSIGNED")
+	@Column(name = "id", nullable = false)
 	protected Long id;
 
 	@Column(name = "IS_DELETED", length = 1)

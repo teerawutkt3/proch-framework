@@ -17,7 +17,7 @@ import java.util.Date;
 @Table(name = "USER", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }) })
 @Getter
 @Setter
-@AttributeOverride(name = "id", column = @Column(name = "USER_ID", nullable = false, columnDefinition = "BIGINT UNSIGNED"))
+@AttributeOverride(name = "id", column = @Column(name = "USER_ID", nullable = false))
 public class User extends BaseEntity {
 
 	private static final long serialVersionUID = 146134598360995282L;

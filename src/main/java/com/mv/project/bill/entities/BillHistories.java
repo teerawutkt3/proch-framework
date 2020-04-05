@@ -11,12 +11,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "BILL_HISTORY", uniqueConstraints = {@UniqueConstraint(columnNames = {"TITLE"})})
+@Table(name = "BILL_HISTORY")
 @Getter
 @Setter
-@AttributeOverride(name = "ID", column = @Column(name = "BILL_HISTORY_ID", nullable = false, columnDefinition = "BIGINT UNSIGNED"))
+@AttributeOverride(name = "ID", column = @Column(name = "BILL_HISTORY_ID", nullable = false))
 public class BillHistories extends BaseEntity {
-    @Column(length = 100, nullable = false)
+    
+	private static final long serialVersionUID = -3524200643762926184L;
+	@Column(length = 100, nullable = false)
     private String title;
     @Column(precision=10, scale=2, nullable = false)
     private BigDecimal amount;

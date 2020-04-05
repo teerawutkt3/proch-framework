@@ -14,7 +14,7 @@ import lombok.Setter;
 @Table(name = "ROLE")
 @Getter
 @Setter
-@AttributeOverride(name = "id", column = @Column(name = "ROLE_ID", nullable = false, columnDefinition = "BIGINT UNSIGNED"))
+@AttributeOverride(name = "id", column = @Column(name = "ROLE_ID", nullable = false))
 public class Role extends BaseEntity {
 
 	private static final long serialVersionUID = 1465422119343489700L;
