@@ -37,16 +37,17 @@ public class RestController {
         ResponseData<Object> responseData = new ResponseData<>();
         String jsonInString = null;
         try {
+            String headerName = "user-agent";
+            String headerValue = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36";
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
+            headers.add(headerName, headerValue);
             HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 
             Object response = restTemplate.exchange(urlCovid19, HttpMethod.GET,entity,Object.class);
             Gson gson = new Gson();
             jsonInString = gson.toJson(response);
-            System.out.println(jsonInString);
             responseData.setData(response);
             MessageUtil.setMessageSuccess(responseData);
         } catch (Exception ex) {
