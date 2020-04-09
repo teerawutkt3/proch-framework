@@ -70,7 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/soap-ws",
 			"/",
 			//"/api/user/test",
-			"/api/user/testPost"
+			"/api/user/testPost",
+			"/test-email"
 	};
 
 	@Override
