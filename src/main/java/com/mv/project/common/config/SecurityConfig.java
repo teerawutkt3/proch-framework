@@ -68,10 +68,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/rest-ws/",
 			"/rest-ws/covid-19",
 			"/soap-ws",
+			"/login",
 			"/",
 			//"/api/user/test",
 			"/api/user/testPost",
-			"/test-email"
+			"/test-email",
+			"/js/**",
+            "/css/**",
+            "/img/**",
+            "/webjars/**"
 	};
 
 	@Override
@@ -98,8 +103,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
-		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-		http.cors().and();
+		//http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		//http.cors().and();
 
 	}
 

@@ -21,13 +21,12 @@ public class MvcConfig implements WebMvcConfigurer {
 	private String host4;
 	private final long MAX_AGE_SECS = 3600;
 
-	/*
-	 * public void addViewControllers(ViewControllerRegistry registry) {
-	 * registry.addViewController("/home").setViewName("home");
-	 * registry.addViewController("/").setViewName("home");
-	 * registry.addViewController("/hello").setViewName("hello");
-	 * registry.addViewController("/login").setViewName("login"); }
-	 */
+//	public void addViewControllers(ViewControllerRegistry registry) {
+//		registry.addViewController("/home").setViewName("home");
+//		registry.addViewController("/").setViewName("home");
+//		registry.addViewController("/hello").setViewName("hello");
+//		registry.addViewController("/login").setViewName("login");
+//	}
 
 	@Override
 	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
