@@ -5,7 +5,7 @@ import java.util.List;
 import com.mv.project.common.repositories.CommonJpaCrudRepository;
 import com.mv.project.ums.entities.User;
 
-public interface UserRepository extends CommonJpaCrudRepository<User, Long> {
+public interface UserRepository extends CommonJpaCrudRepository<User, Long>, UserRepositoryCustom {
 	
 	User findByUsername(String username);
 
