@@ -5,6 +5,7 @@ import com.mv.project.bill.entities.Bill;
 import com.mv.project.bill.entities.BillHistories;
 import com.mv.project.bill.repositories.BillHistoryRepository;
 import com.mv.project.common.utils.DateUtils;
+import com.mv.project.common.utils.UserLoginUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,8 @@ public class BillHistoryService {
         String lastDayOfMonth = DateUtils.lastOfMonth(new Date());
         Date end = DateUtils.parseDate(yyyyMM + lastDayOfMonth + " 00:00:00", DateUtils.YYYYMMDD_HH_MM_SS);
 
-        return billHistoryRepository.findByPayDateBetweenOrderByCreatedDateDesc(start, end);
+        String createdBy = UserLoginUtils.getCurrentUsername();
+        return billHistoryRepository.findByCreatedByAndPayDateBetweenOrderByCreatedDateDesc(createdBy, start, end);
     }
 
     public void pay(Bill bill){

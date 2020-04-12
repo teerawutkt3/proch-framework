@@ -56,6 +56,7 @@ public abstract class BaseEntity implements Serializable {
 			createdBy = UserLoginUtils.getCurrentUsername();
 		}
 		createdDate = new Date();
+		updatedDate = new Date();
 	}
 
 	@PreUpdate

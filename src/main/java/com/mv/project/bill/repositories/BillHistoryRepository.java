@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface BillHistoryRepository extends CommonJpaCrudRepository<BillHistories, Long> {
 
-    List<BillHistories> findByPayDateBetweenOrderByCreatedDateDesc(Date start, Date end);
+    List<BillHistories> findByCreatedByAndPayDateBetweenOrderByCreatedDateDesc(String createdBy, Date start, Date end);
 }
