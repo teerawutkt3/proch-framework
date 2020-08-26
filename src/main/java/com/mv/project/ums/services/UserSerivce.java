@@ -22,6 +22,7 @@ import com.mv.project.ums.repositories.UserRepository;
 import com.mv.project.ums.repositories.UserRoleRepository;
 import com.mv.project.ums.vo.UserVo;
 
+@Transactional
 @Service
 public class UserSerivce {
     private static final Logger logger = LoggerFactory.getLogger(UserSerivce.class);
