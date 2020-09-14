@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  hm-web:
+    image: hm-api-image
+    container_name: hm-api-conatiner
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - /data/hm-api
+    ports:
+      - "6001:8080"
