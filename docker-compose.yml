@@ -10,4 +10,4 @@ services:
     volumes:
       - /data/hm-api
     ports:
-      - "6001:8080"
+      - "8083:8080"
