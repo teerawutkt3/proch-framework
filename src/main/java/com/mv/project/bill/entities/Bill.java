@@ -28,6 +28,8 @@ public class Bill extends BaseEntity {
 	@Column(length = 1000)
 	private String remark;
 	private Date payDate;
+	@Column(length = 10)
+	private String moneyType;
 
 	@Override
 	public String toString() {

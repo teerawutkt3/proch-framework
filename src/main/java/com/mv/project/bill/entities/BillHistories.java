@@ -29,6 +29,8 @@ public class BillHistories extends BaseEntity {
     private Date payDate;
     @Column(length = 1)
     private String isPay = ProjectConstant.Flag.Y;
+    @Column(length = 10)
+    private String moneyType;
 
     @Override
     public String toString() {

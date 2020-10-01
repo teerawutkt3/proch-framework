@@ -15,6 +15,7 @@ import com.mv.project.bill.repositories.BillRepository;
 import com.mv.project.common.constants.ProjectConstant;
 import com.mv.project.common.utils.UserLoginUtils;
 
+@Transactional
 @Service
 public class BillService {
 

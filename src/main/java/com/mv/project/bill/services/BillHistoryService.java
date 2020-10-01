@@ -8,10 +8,12 @@ import com.mv.project.common.utils.DateUtils;
 import com.mv.project.common.utils.UserLoginUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 
+@Transactional
 @Service
 public class BillHistoryService {
 
@@ -37,6 +39,7 @@ public class BillHistoryService {
         his.setPayDate(new Date());
         his.setRemark(bill.getRemark());
         his.setIsPay(BillConstants.IsPay.YES);
+        his.setMoneyType(bill.getMoneyType());
         billHistoryRepository.save(his);
     }
 }

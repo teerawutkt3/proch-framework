@@ -3,15 +3,13 @@ package com.mv.project.ws.rest;
 import com.google.gson.Gson;
 import com.mv.project.common.beans.ResponseData;
 import com.mv.project.common.utils.MessageUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.baeldung.springsoap.gen.Country;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -22,15 +20,6 @@ public class RestController {
 
     @Value("${urlCovid19}")
     private String urlCovid19;
-
-    @Autowired
-    private RestService restService;
-
-
-    @PostMapping("/")
-    public Country getCountry(@RequestBody Request rest) {
-        return restService.getCountry(rest);
-    }
 
     @GetMapping("/covid-19")
     public ResponseData<Object> getSummary() {
@@ -45,7 +34,7 @@ public class RestController {
             headers.add(headerName, headerValue);
             HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 
-            Object response = restTemplate.exchange(urlCovid19, HttpMethod.GET,entity,Object.class);
+            Object response = restTemplate.exchange(urlCovid19, HttpMethod.GET, entity, Object.class);
             Gson gson = new Gson();
             jsonInString = gson.toJson(response);
             responseData.setData(response);
