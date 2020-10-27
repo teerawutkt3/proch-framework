@@ -16,7 +16,7 @@ import java.util.Date;
 @Setter
 @AttributeOverride(name = "ID", column = @Column(name = "BILL_HISTORY_ID", nullable = false))
 public class BillHistories extends BaseEntity {
-    
+
 	private static final long serialVersionUID = -3524200643762926184L;
 	@Column(length = 100, nullable = false)
     private String title;
@@ -31,6 +31,9 @@ public class BillHistories extends BaseEntity {
     private String isPay = ProjectConstant.Flag.Y;
     @Column(length = 10)
     private String moneyType;
+
+    private Integer month;
+    private Integer year;
 
     @Override
     public String toString() {

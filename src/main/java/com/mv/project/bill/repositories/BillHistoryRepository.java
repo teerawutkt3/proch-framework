@@ -6,7 +6,7 @@ import com.mv.project.common.repositories.CommonJpaCrudRepository;
 import java.util.Date;
 import java.util.List;
 
-public interface BillHistoryRepository extends CommonJpaCrudRepository<BillHistories, Long> {
+public interface BillHistoryRepository extends CommonJpaCrudRepository<BillHistories, Long>, BillHistoryRepositoryCustom {
 
     List<BillHistories> findByCreatedByAndPayDateBetweenOrderByCreatedDateDesc(String createdBy, Date start, Date end);
 }
